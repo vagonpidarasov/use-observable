@@ -3,10 +3,16 @@ import {interval, of, shareReplay, concatWith, map, Observable, BehaviorSubject,
 import './App.scss';
 import {useObservable, isUndefined} from './useObservable';
 
-const Observables = {
+const Subjects = {
   Subject: new Subject(),
   ReplaySubject: new ReplaySubject(5),
   BehaviorSubject: new BehaviorSubject(1),
+};
+
+const Observables = {
+  Subject: Subjects.Subject.asObservable(),
+  ReplaySubject: Subjects.ReplaySubject.asObservable(),
+  BehaviorSubject: Subjects.BehaviorSubject.asObservable(),
   Interval: interval(1000),
   ImmediateInterval: of(0).pipe(
     concatWith(interval(1000).pipe(map(v => v + 1)))
@@ -25,15 +31,15 @@ function App() {
   const selectInterval = useCallback(() => setObservable(Observables.Interval), []);
   const selectImmediateInterval = useCallback(() => setObservable(Observables.ImmediateInterval), []);
   const selectHotInterval = useCallback(() => setObservable(Observables.HotInterval), []);
-  const selectBehaviorSubject = useCallback(() => setObservable(Observables.BehaviorSubject.asObservable()), []);
-  const selectSubject = useCallback(() => setObservable(Observables.Subject.asObservable()), []);
-  const selectReplaySubject = useCallback(() => setObservable(Observables.ReplaySubject.asObservable()), []);
+  const selectBehaviorSubject = useCallback(() => setObservable(Observables.BehaviorSubject), []);
+  const selectSubject = useCallback(() => setObservable(Observables.Subject), []);
+  const selectReplaySubject = useCallback(() => setObservable(Observables.ReplaySubject), []);
 
   const pushNext = useCallback(() => {
     const next = Math.floor(Math.random()*100);
-    Observables.Subject.next(next);
-    Observables.ReplaySubject.next(next);
-    Observables.BehaviorSubject.next(next);
+    Subjects.Subject.next(next);
+    Subjects.ReplaySubject.next(next);
+    Subjects.BehaviorSubject.next(next);
   }, []);
 
   useEffect(() => {
@@ -44,7 +50,7 @@ function App() {
   return (
     <div className="app">
       <div className="counter">
-        {isUndefined(value) ? null : <span>{value}</span>}
+        {isUndefined(value) ? '--' : <span>{value}</span>}
       </div>
       <button onClick={selectEmpty}>Reset</button>
       <button onClick={selectInterval}>Interval</button>
@@ -52,8 +58,7 @@ function App() {
       <button onClick={selectBehaviorSubject}>BehaviorSubject</button>
 
       <div className="controls">
-        <span>{isUndefined(hot) ? null : <span>{hot}</span>}</span>
-        <button onClick={selectHotInterval}>Hot interval</button>
+        <button onClick={selectHotInterval}>Hot interval ({String(hot)})</button>
       </div>
 
       <div className="controls">
