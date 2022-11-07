@@ -1,29 +1,30 @@
 import React, {useCallback, useState} from 'react';
 import {of, Observable} from 'rxjs';
 import './App.scss';
-import {useObservable, isUndefined} from './useObservable';
-import {useTap} from './useTap';
+import {useObservable} from './useObservable';
 import {
   Interval,
   ImmediateInterval,
   HotInterval,
   SubjectObservable,
   ReplaySubjectObservable,
-  BehaviorSubjectObservable
+  BehaviorSubjectObservable,
+  FetchPoll,
+  TimeoutRetry,
+  SwitchMap,
+  ExhaustMap,
 } from './use-cases';
 
 function App() {
-  const [observable, setObservable] = useState<Observable<any>>(of());
+  const [observable, setObservable] = useState<Observable<any>>(of(undefined));
   const value = useObservable<number>(observable);
-  const handleSelect = useCallback((o: Observable<number>) => setObservable(o), []);
-  const handleReset = useCallback(() => setObservable(of()), []);
-
-  useTap(observable, console.log);
+  const handleSelect = useCallback((source:Observable<number>) => setObservable(source), []);
+  const handleReset = useCallback(() => setObservable(of(undefined)), []);
 
   return (
     <div className="app">
-      <div className="counter">
-        {isUndefined(value) ? '--' : <span>{value}</span>}
+      <div className="value">
+        <span>{value ?? '--'}</span>
       </div>
 
       <button onClick={handleReset}>Reset</button>
@@ -34,6 +35,10 @@ function App() {
       <SubjectObservable onSelect={handleSelect} />
       <ReplaySubjectObservable onSelect={handleSelect} />
       <BehaviorSubjectObservable onSelect={handleSelect} />
+      <FetchPoll onSelect={handleSelect} />
+      <TimeoutRetry onSelect={handleSelect} />
+      <SwitchMap onSelect={handleSelect} />
+      <ExhaustMap onSelect={handleSelect} />
     </div>
   );
 }

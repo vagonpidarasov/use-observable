@@ -1,8 +1,9 @@
 import React, {useCallback} from 'react';
-import {interval, of, concatWith, map} from 'rxjs';
+import {interval, concatWith, EMPTY, startWith, map} from 'rxjs';
 import {PropsType} from './props-type';
 
-const observable = of(0).pipe(
+const observable = EMPTY.pipe(
+  startWith(0),
   concatWith(interval(1000).pipe(map(v => v + 1)))
 );
 

@@ -9,5 +9,8 @@ export function HotInterval({onSelect}: PropsType) {
   const handleSelect = useCallback(() => onSelect(observable), [observable]);
   const hot = useObservable<number>(observable);
 
-  return <button onClick={handleSelect}>Hot interval ({String(hot)})</button>
+  return <div className="controls">
+    <button onClick={handleSelect}>Hot interval</button>
+    <span>{String(hot)}</span>
+  </div>
 }
