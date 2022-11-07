@@ -9,5 +9,9 @@ const observable = EMPTY.pipe(
 
 export function ImmediateInterval({onSelect}: PropsType) {
   const handleSelect = useCallback(() => onSelect(observable), [observable]);
-  return <button onClick={handleSelect}>Immediate Interval</button>;
+  return (
+    <div className="grid-row">
+      <button className="pick" onClick={handleSelect}>Immediate Interval</button>
+    </div>
+  );
 }

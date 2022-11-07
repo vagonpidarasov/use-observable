@@ -23,8 +23,8 @@ export function ExhaustMap({onSelect}: PropsType) {
   const handleLogin = useCallback(() => subject.next(true), [subject]);
 
   return (
-    <div className="controls">
-      <button onClick={handleSelect}>Exhaust Map</button>
+    <div className="grid-row">
+      <button className="pick" onClick={handleSelect}>Exhaust Map</button>
       <button onClick={handleLogin}>Login</button>
     </div>
   );

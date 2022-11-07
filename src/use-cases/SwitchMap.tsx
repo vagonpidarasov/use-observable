@@ -23,8 +23,8 @@ export function SwitchMap({onSelect}: PropsType) {
   const handleLogin = useCallback(() => subject.next(true), [subject]);
 
   return (
-    <div className="controls">
-      <button onClick={handleSelect}>Switch map</button>
+    <div className="grid-row">
+      <button className="pick" onClick={handleSelect}>Switch map</button>
       <button onClick={handleLogin}>Search</button>
     </div>
   );

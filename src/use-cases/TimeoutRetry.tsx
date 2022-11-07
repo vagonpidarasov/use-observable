@@ -19,8 +19,8 @@ export function TimeoutRetry({onSelect}: PropsType) {
   const handleSelect = useCallback(() => onSelect(data), []);
 
   return (
-    <div className="controls">
-      <button onClick={handleSelect}>Timout retry</button>
+    <div className="grid-row">
+      <button className="pick" onClick={handleSelect}>Timout retry</button>
     </div>
   );
 }

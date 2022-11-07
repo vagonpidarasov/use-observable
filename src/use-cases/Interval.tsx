@@ -6,5 +6,10 @@ const observable = interval(1000);
 
 export function Interval({onSelect}: PropsType) {
   const handleSelect = useCallback(() => onSelect(observable), [observable]);
-  return <button onClick={handleSelect}>Interval</button>;
+
+  return (
+    <div className="grid-row">
+      <button className="pick" onClick={handleSelect}>Interval</button>
+    </div>
+  );
 }

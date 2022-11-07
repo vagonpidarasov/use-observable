@@ -29,16 +29,18 @@ function App() {
 
       <button onClick={handleReset}>Reset</button>
 
-      <Interval onSelect={handleSelect} />
-      <ImmediateInterval onSelect={handleSelect} />
-      <HotInterval onSelect={handleSelect} />
-      <SubjectObservable onSelect={handleSelect} />
-      <ReplaySubjectObservable onSelect={handleSelect} />
-      <BehaviorSubjectObservable onSelect={handleSelect} />
-      <FetchPoll onSelect={handleSelect} />
-      <TimeoutRetry onSelect={handleSelect} />
-      <SwitchMap onSelect={handleSelect} />
-      <ExhaustMap onSelect={handleSelect} />
+      <div className="grid">
+        <Interval onSelect={handleSelect} />
+        <ImmediateInterval onSelect={handleSelect} />
+        <HotInterval onSelect={handleSelect} />
+        <SubjectObservable onSelect={handleSelect} />
+        <ReplaySubjectObservable onSelect={handleSelect} />
+        <BehaviorSubjectObservable onSelect={handleSelect} />
+        <FetchPoll onSelect={handleSelect} />
+        <TimeoutRetry onSelect={handleSelect} />
+        <SwitchMap onSelect={handleSelect} />
+        <ExhaustMap onSelect={handleSelect} />
+      </div>
     </div>
   );
 }

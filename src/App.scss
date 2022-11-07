@@ -6,10 +6,33 @@
   align-items: center;
   flex-direction: column;
 
-  .controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .grid {
+    display: grid;
+    grid-template-columns: 100%;
+  }
+
+  .grid-row {
+    margin: 0.3em 0;
+    display: grid;
+    grid-template-areas:
+      "pick control";
+    grid-template-columns: 1fr 1fr;
+
+    .pick {
+      grid-area: pick;
+      margin: 0 0.1em;
+    }
+
+    .value {
+      text-align: center;
+      font-size: 0.7em;
+      color: rgba(0,0,0,0.7);
+    }
+
+    .control {
+      margin: 0 0.1em;
+      grid-area: control;
+    }
   }
 
   .value {

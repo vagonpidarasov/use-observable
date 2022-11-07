@@ -23,8 +23,8 @@ export function FetchPoll({onSelect}: PropsType) {
   const handleSelect = useCallback(() => onSelect(observable), []);
 
   return (
-    <div className="controls">
-      <button onClick={handleSelect}>Poll</button>
+    <div className="grid-row">
+      <button className="pick" onClick={handleSelect}>Poll</button>
     </div>
   );
 }

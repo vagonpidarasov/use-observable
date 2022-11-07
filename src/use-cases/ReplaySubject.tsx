@@ -10,8 +10,8 @@ export function ReplaySubjectObservable({onSelect}: PropsType) {
   const handleNext = useCallback(() => subject.next(Math.floor(Math.random()*100)), [subject]);
 
   return (
-    <div className="controls">
-      <button onClick={handleSelect}>Replay Subject</button>
+    <div className="grid-row">
+      <button className="pick" onClick={handleSelect}>Replay Subject</button>
       <button onClick={handleNext}>Next</button>
     </div>
   );

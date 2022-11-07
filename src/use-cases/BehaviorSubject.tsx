@@ -10,8 +10,8 @@ export function BehaviorSubjectObservable({onSelect}: PropsType) {
   const handleNext = useCallback(() => subject.next(Math.floor(Math.random()*100)), [subject]);
 
   return (
-    <div className="controls">
-      <button onClick={handleSelect}>Behavior Subject</button>
+    <div className="grid-row">
+      <button className="pick" onClick={handleSelect}>Behavior Subject</button>
       <button onClick={handleNext}>Next</button>
     </div>
   );
