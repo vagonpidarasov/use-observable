@@ -19,7 +19,7 @@ const observable = subject.asObservable().pipe(
 );
 
 export function ExhaustMap({onSelect}: PropsType) {
-  const handleSelect = useCallback(() => onSelect(observable), []);
+  const handleSelect = useCallback(() => onSelect(observable), [onSelect, observable]);
   const handleLogin = useCallback(() => subject.next(true), [subject]);
 
   return (

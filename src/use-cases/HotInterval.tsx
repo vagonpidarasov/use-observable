@@ -6,7 +6,7 @@ import {useObservable} from '../useObservable';
 const observable = interval(1000).pipe(shareReplay(1));
 
 export function HotInterval({onSelect}: PropsType) {
-  const handleSelect = useCallback(() => onSelect(observable), [observable]);
+  const handleSelect = useCallback(() => onSelect(observable), [onSelect, observable]);
   const hot = useObservable<number>(observable);
 
   return (

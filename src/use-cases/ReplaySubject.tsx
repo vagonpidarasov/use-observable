@@ -6,7 +6,7 @@ const subject = new ReplaySubject<number>(3);
 const observable = subject.asObservable();
 
 export function ReplaySubjectObservable({onSelect}: PropsType) {
-  const handleSelect = useCallback(() => onSelect(observable), [observable]);
+  const handleSelect = useCallback(() => onSelect(observable), [onSelect, observable]);
   const handleNext = useCallback(() => subject.next(Math.floor(Math.random()*100)), [subject]);
 
   return (

@@ -11,7 +11,7 @@ import {PropsType} from './props-type';
 const endpoint = 'http://localhost:3001/rand?delay=2000';
 const data:Observable<number> = ajax.getJSON<{value: number}>(endpoint).pipe(
   map(data => data.value),
-)
+);
 
 const subject = new Subject<boolean>();
 const observable = subject.asObservable().pipe(
@@ -19,7 +19,7 @@ const observable = subject.asObservable().pipe(
 );
 
 export function SwitchMap({onSelect}: PropsType) {
-  const handleSelect = useCallback(() => onSelect(observable), []);
+  const handleSelect = useCallback(() => onSelect(observable), [onSelect, observable]);
   const handleLogin = useCallback(() => subject.next(true), [subject]);
 
   return (

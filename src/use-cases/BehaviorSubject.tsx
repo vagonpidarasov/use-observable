@@ -6,7 +6,7 @@ const subject = new BehaviorSubject<number>(1);
 const observable = subject.asObservable();
 
 export function BehaviorSubjectObservable({onSelect}: PropsType) {
-  const handleSelect = useCallback(() => onSelect(observable), [observable]);
+  const handleSelect = useCallback(() => onSelect(observable), [onSelect, observable]);
   const handleNext = useCallback(() => subject.next(Math.floor(Math.random()*100)), [subject]);
 
   return (
