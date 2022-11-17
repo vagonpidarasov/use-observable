@@ -6,6 +6,10 @@
   align-items: center;
   flex-direction: column;
 
+  .description {
+    font-size: 0.75em;
+  }
+
   .grid {
     display: grid;
     grid-template-columns: 100%;
@@ -21,6 +25,12 @@
     .pick {
       grid-area: pick;
       margin: 0 0.3em;
+    }
+
+    &.selected {
+      .pick {
+        color: blue;
+      }
     }
 
     .value {

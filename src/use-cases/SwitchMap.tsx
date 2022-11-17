@@ -5,6 +5,7 @@ import {
   switchMap,
   Subject,
 } from 'rxjs';
+import cx from 'classnames';
 import {ajax} from 'rxjs/ajax';
 import {PropsType} from './props-type';
 
@@ -18,15 +19,30 @@ const observable = subject.asObservable().pipe(
   switchMap(() => data)
 );
 
-export function SwitchMap({onSelect}: PropsType) {
-  const handleSelect = useCallback(() => onSelect(observable), [onSelect, observable]);
+const description = <>
+    <span>Every time user tries to search something, new request is fired
+      and previous one is discarded. See</span>&nbsp;
+  <a
+    href="https://rxjs.dev/api/operators/switchMap"
+    target="_blank"
+    rel="noopener noreferrer"
+  >switchMap</a>
+</>
+
+export function SwitchMap({onSelect, selected}: PropsType) {
+  const handleSelect = useCallback(() => onSelect({
+    observable,
+    description,
+    selectedItem: SwitchMap.id
+  }), [onSelect, observable]);
   const handleLogin = useCallback(() => subject.next(true), [subject]);
 
   return (
-    <div className="grid-row">
+    <div className={cx('grid-row', {selected})}>
       <button className="pick" onClick={handleSelect}>Switch map</button>
       <button onClick={handleLogin}>Search</button>
     </div>
   );
 }
 
+SwitchMap.id = 'SwitchMap';

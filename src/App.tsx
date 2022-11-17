@@ -1,14 +1,16 @@
-import React, {useCallback, useState} from 'react';
+import React, {ReactElement, useCallback, useState} from 'react';
+import cx from 'classnames';
 import {of, Observable} from 'rxjs';
 import './App.scss';
 import {useObservable} from './useObservable';
 import {
+  PayloadType,
   Interval,
   ImmediateInterval,
   HotInterval,
   SubjectObservable,
   ReplaySubjectObservable,
-  BehaviorSubjectObservable,
+  BehaviorSubject,
   FetchPoll,
   TimeoutRetry,
   SwitchMap,
@@ -17,12 +19,29 @@ import {
 
 function App() {
   const [observable, setObservable] = useState<Observable<any>>(of(undefined));
+  const [selected, setSelected] = useState<string>('');
+  const [description, setDescription] = useState<ReactElement|null>(null);
   const value = useObservable<number>(observable);
-  const handleSelect = useCallback((source:Observable<number>) => setObservable(source), []);
-  const handleReset = useCallback(() => setObservable(of(undefined)), []);
+  const handleSelect = useCallback(
+    ({observable, selectedItem, description}:PayloadType) => {
+      setObservable(observable);
+      setSelected(selectedItem);
+      setDescription(description);
+    },
+    [setObservable, setSelected]
+);
+  const handleReset = useCallback(() => {
+    setObservable(of(undefined));
+    setSelected('');
+    setDescription(null);
+  }, [setObservable, setSelected]);
 
   return (
     <div className="app">
+      <div className="description">
+        {description ?? <span>Pick an observable from the list below</span>}
+      </div>
+
       <div className="value">
         <span>{value ?? '--'}</span>
       </div>
@@ -30,16 +49,16 @@ function App() {
       <button onClick={handleReset}>Reset</button>
 
       <div className="grid">
-        <Interval onSelect={handleSelect} />
-        <ImmediateInterval onSelect={handleSelect} />
-        <HotInterval onSelect={handleSelect} />
-        <SubjectObservable onSelect={handleSelect} />
-        <ReplaySubjectObservable onSelect={handleSelect} />
-        <BehaviorSubjectObservable onSelect={handleSelect} />
-        <FetchPoll onSelect={handleSelect} />
-        <TimeoutRetry onSelect={handleSelect} />
-        <SwitchMap onSelect={handleSelect} />
-        <ExhaustMap onSelect={handleSelect} />
+        <Interval selected={selected === Interval.id} onSelect={handleSelect} />
+        <ImmediateInterval selected={selected === ImmediateInterval.id} onSelect={handleSelect} />
+        <HotInterval selected={selected === HotInterval.id} onSelect={handleSelect} />
+        <SubjectObservable selected={selected === SubjectObservable.id} onSelect={handleSelect} />
+        <ReplaySubjectObservable selected={selected === ReplaySubjectObservable.id} onSelect={handleSelect} />
+        <BehaviorSubject selected={selected === BehaviorSubject.id} onSelect={handleSelect} />
+        <FetchPoll selected={selected === FetchPoll.id} onSelect={handleSelect} />
+        <TimeoutRetry selected={selected === TimeoutRetry.id} onSelect={handleSelect} />
+        <SwitchMap selected={selected === SwitchMap.id} onSelect={handleSelect} />
+        <ExhaustMap selected={selected === ExhaustMap.id} onSelect={handleSelect} />
       </div>
     </div>
   );

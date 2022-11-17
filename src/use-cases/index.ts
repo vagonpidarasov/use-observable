@@ -1,3 +1,4 @@
+export type {PayloadType} from './props-type';
 export * from './Interval';
 export * from './HotInterval';
 export * from './ImmediateInterval';

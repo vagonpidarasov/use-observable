@@ -1,4 +1,5 @@
 import React, {useCallback} from 'react';
+import cx from 'classnames';
 import {
   concatWith,
   interval,
@@ -22,12 +23,22 @@ const observable:Observable<number> = timer(0).pipe(
   map(data => data.value),
 );
 
-export function FetchPoll({onSelect}: PropsType) {
-  const handleSelect = useCallback(() => onSelect(observable), [onSelect, observable]);
+const description = <>
+    <span>Starts polling remote host the moment it's subscribed.</span>
+  </>
+
+export function FetchPoll({onSelect, selected}: PropsType) {
+  const handleSelect = useCallback(() => onSelect({
+    observable,
+    description,
+    selectedItem: FetchPoll.id
+  }), [onSelect, observable]);
 
   return (
-    <div className="grid-row">
+    <div className={cx('grid-row', {selected})}>
       <button className="pick" onClick={handleSelect}>Poll</button>
     </div>
   );
 }
+
+FetchPoll.id = 'FetchPoll';
