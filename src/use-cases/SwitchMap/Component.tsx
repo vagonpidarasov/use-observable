@@ -4,20 +4,20 @@ import {PropsType} from '../props-type';
 import description from './description';
 import observable, {subject} from './observable';
 
-export function BehaviorSubject({onSelect, selected}: PropsType) {
+export function SwitchMap({onSelect, selected}: PropsType) {
   const handleSelect = useCallback(() => onSelect({
     observable,
     description,
-    selectedItem: BehaviorSubject.id
+    selectedItem: SwitchMap.id
   }), [onSelect, observable]);
-  const handleNext = useCallback(() => subject.next(Math.floor(Math.random()*100)), [subject]);
+  const handleLogin = useCallback(() => subject.next(true), [subject]);
 
   return (
     <div className={cx('grid-row', {selected})}>
-      <button className="pick" onClick={handleSelect}>Behavior Subject</button>
-      <button onClick={handleNext}>Next</button>
+      <button className="pick" onClick={handleSelect}>Switch map</button>
+      <button onClick={handleLogin}>Search</button>
     </div>
   );
 }
 
-BehaviorSubject.id = 'BehaviorSubject';
+SwitchMap.id = 'SwitchMap';

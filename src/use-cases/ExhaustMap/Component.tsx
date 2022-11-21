@@ -4,20 +4,20 @@ import {PropsType} from '../props-type';
 import description from './description';
 import observable, {subject} from './observable';
 
-export function BehaviorSubject({onSelect, selected}: PropsType) {
+export function ExhaustMap({onSelect, selected}: PropsType) {
   const handleSelect = useCallback(() => onSelect({
     observable,
     description,
-    selectedItem: BehaviorSubject.id
+    selectedItem: ExhaustMap.id
   }), [onSelect, observable]);
-  const handleNext = useCallback(() => subject.next(Math.floor(Math.random()*100)), [subject]);
+  const handleLogin = useCallback(() => subject.next(true), [subject]);
 
   return (
     <div className={cx('grid-row', {selected})}>
-      <button className="pick" onClick={handleSelect}>Behavior Subject</button>
-      <button onClick={handleNext}>Next</button>
+      <button className="pick" onClick={handleSelect}>Exhaust Map</button>
+      <button onClick={handleLogin}>Login</button>
     </div>
   );
 }
 
-BehaviorSubject.id = 'BehaviorSubject';
+ExhaustMap.id = 'ExhaustMap';

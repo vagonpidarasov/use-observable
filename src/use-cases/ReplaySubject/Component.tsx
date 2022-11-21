@@ -4,20 +4,20 @@ import {PropsType} from '../props-type';
 import description from './description';
 import observable, {subject} from './observable';
 
-export function BehaviorSubject({onSelect, selected}: PropsType) {
+export function ReplaySubject({onSelect, selected}: PropsType) {
   const handleSelect = useCallback(() => onSelect({
     observable,
     description,
-    selectedItem: BehaviorSubject.id
+    selectedItem: ReplaySubject.id
   }), [onSelect, observable]);
-  const handleNext = useCallback(() => subject.next(Math.floor(Math.random()*100)), [subject]);
+  const handleNext = useCallback(() => subject.next(Math.floor(Math.random() * 100)), [subject]);
 
   return (
     <div className={cx('grid-row', {selected})}>
-      <button className="pick" onClick={handleSelect}>Behavior Subject</button>
+      <button className="pick" onClick={handleSelect}>Replay Subject</button>
       <button onClick={handleNext}>Next</button>
     </div>
   );
 }
 
-BehaviorSubject.id = 'BehaviorSubject';
+ReplaySubject.id = 'ReplaySubjectObservable';

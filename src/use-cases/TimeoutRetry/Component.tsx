@@ -4,20 +4,20 @@ import {PropsType} from '../props-type';
 import description from './description';
 import observable, {subject} from './observable';
 
-export function BehaviorSubject({onSelect, selected}: PropsType) {
+export function TimeoutRetry({onSelect, selected}: PropsType) {
   const handleSelect = useCallback(() => onSelect({
     observable,
     description,
-    selectedItem: BehaviorSubject.id
+    selectedItem: TimeoutRetry.id
   }), [onSelect, observable]);
-  const handleNext = useCallback(() => subject.next(Math.floor(Math.random()*100)), [subject]);
+  const handleTry = useCallback(() => subject.next(true), [subject]);
 
   return (
     <div className={cx('grid-row', {selected})}>
-      <button className="pick" onClick={handleSelect}>Behavior Subject</button>
-      <button onClick={handleNext}>Next</button>
+      <button className="pick" onClick={handleSelect}>Timout retry</button>
+      <button onClick={handleTry}>Try</button>
     </div>
   );
 }
 
-BehaviorSubject.id = 'BehaviorSubject';
+TimeoutRetry.id = 'TimeoutRetry';

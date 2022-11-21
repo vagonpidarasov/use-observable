@@ -1,17 +1,8 @@
 import React, {useCallback} from 'react';
-import {interval} from 'rxjs';
 import cx from 'classnames';
-import {PropsType} from './props-type';
-
-const observable = interval(1000);
-const description = <>
-    <span>Starts emitting values every second once subscribed. See</span>&nbsp;
-    <a
-      href="https://rxjs.dev/api/index/function/interval"
-      target="_blank"
-      rel="noopener noreferrer"
-    >interval</a>
-  </>
+import {PropsType} from '../props-type';
+import description from './description';
+import observable from './observable';
 
 export function Interval({onSelect, selected}: PropsType) {
   const handleSelect = useCallback(() => onSelect({
